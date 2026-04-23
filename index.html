@@ -4,20 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaprisi Frutería</title>
+
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #fceabb, #f8b500);
 }
+
 header {
     text-align: center;
     padding: 20px;
     background: white;
 }
+
 header img {
     max-width: 140px;
 }
+
 .catalogo-btn {
     display: inline-block;
     margin-top: 10px;
@@ -28,11 +32,13 @@ header img {
     text-decoration: none;
     font-weight: bold;
 }
+
 .container {
     display: flex;
     justify-content: center;
     padding: 20px;
 }
+
 .pedido {
     background: white;
     padding: 25px;
@@ -41,9 +47,11 @@ header img {
     width: 100%;
     max-width: 400px;
 }
+
 .pedido h2 {
     text-align: center;
 }
+
 input, textarea {
     width: 100%;
     margin-bottom: 10px;
@@ -51,6 +59,7 @@ input, textarea {
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
 button {
     width: 100%;
     padding: 12px;
@@ -61,44 +70,79 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
 button:hover {
     background: #1ebe5d;
 }
+
+/* Botón flotante */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 </style>
+
 </head>
 <body>
 
 <header>
     <img src="https://github.com/frutasprimera-bot/index.html/blob/main/ChatGPT%20Image%20Apr%2023,%202026,%2010_27_52%20AM.png?raw=true" alt="Logo">
     <h1>Kaprisi Frutería</h1>
-    <a class="catalogo-btn" href="https://github.com/frutasprimera-bot/index.html/blob/8c80e6a7aefe70f520d2a2375cedd806bcb4c423/Catalogo1%20(1).pdf" target="_blank">Ver Catálogo</a>
+
+    <a class="catalogo-btn" 
+       href="https://raw.githubusercontent.com/frutasprimera-bot/index.html/40475f1e181cbede7eb2952bd7c89da7c3503f4e/Catalogo1%20(1).pdf" 
+       download>
+       Descargar Catálogo PDF
+    </a>
 </header>
 
 <div class="container">
     <div class="pedido">
         <h2>Hacer Pedido</h2>
+
         <input type="text" id="nombre" placeholder="Nombre">
         <input type="text" id="telefono" placeholder="Teléfono">
         <input type="text" id="direccion" placeholder="Dirección">
         <textarea id="pedido" placeholder="Escriba su pedido"></textarea>
+
         <button onclick="enviarPedido()">Enviar por WhatsApp</button>
     </div>
 </div>
 
+<!-- Botón flotante -->
+<a class="whatsapp-float" href="#" onclick="enviarPedido()">💬</a>
+
 <script>
 function enviarPedido() {
-    let nombre = document.getElementById('nombre').value;
-    let telefono = document.getElementById('telefono').value;
-    let direccion = document.getElementById('direccion').value;
-    let pedido = document.getElementById('pedido').value;
+    let nombre = document.getElementById('nombre').value.trim();
+    let telefono = document.getElementById('telefono').value.trim();
+    let direccion = document.getElementById('direccion').value.trim();
+    let pedido = document.getElementById('pedido').value.trim();
 
-    let mensaje = `Hola, quiero hacer un pedido:%0A
-Nombre: ${nombre}%0A
-Teléfono: ${telefono}%0A
-Dirección: ${direccion}%0A
-Pedido: ${pedido}`;
+    if (!nombre || !telefono || !direccion || !pedido) {
+        alert("Por favor complete todos los campos");
+        return;
+    }
 
-    let numero = "50664541075";
+    let mensaje = `🧾 *Pedido Kaprisi* %0A%0A` +
+                  `👤 *Nombre:* ${nombre}%0A` +
+                  `📞 *Teléfono:* ${telefono}%0A` +
+                  `📍 *Dirección:* ${direccion}%0A%0A` +
+                  `🛒 *Pedido:* %0A${pedido}`;
+
+    let numero = "50664541075"; // ← CAMBIA ESTO
     let url = `https://wa.me/${numero}?text=${mensaje}`;
 
     window.open(url, '_blank');
